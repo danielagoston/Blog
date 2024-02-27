@@ -48,20 +48,21 @@ class Autor(models.Model):
         return "{0}, {1}".format(self.apellidos, self.nombres)
     
 class Post(models.Model):
-    id = models.AutoField(primary_key=True)
-    titulo = models.CharField('Título', max_length = 90, blank = False, null = False)
-    slug = models.CharField('Slug', max_length = 100, blank = False, null = False)
-    descripcion = models.CharField('Descripción', max_length = 110, blank = False, null = False)
-    contenido = RichTextField()
-    imagen = models.URLField(max_length = 255, blank = False, null = False)
-    autor = models.ForeignKey(Autor, on_delete = models.CASCADE)
-    categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
-    estado = models.BooleanField('Publicado/No Publicado', default = True)
-    fecha_creacion = models.DateField('Fecha de Creación', auto_now=False, auto_now_add=True)
+    id = models.AutoField(primary_key=True)  # Campo para almacenar el ID único de la publicación
+    titulo = models.CharField('Título', max_length=90, blank=False, null=False)  # Campo para el título de la publicación
+    slug = models.CharField('Slug', max_length=100, blank=False, null=False)  # Campo para el slug de la publicación
+    descripcion = models.CharField('Descripción', max_length=110, blank=False, null=False)  # Campo para la descripción de la publicación
+    contenido = RichTextField()  # Campo para el contenido principal de la publicación
+    imagen = models.URLField(max_length=255, blank=False, null=False)  # Campo para la URL de la imagen asociada a la publicación
+    autor = models.ForeignKey(Autor, on_delete=models.CASCADE)  # Relación con el autor de la publicación
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)  # Relación con la categoría de la publicación
+    estado = models.BooleanField('Publicado/No Publicado', default=True)  # Campo para indicar si la publicación está publicada o no
+    fecha_creacion = models.DateField('Fecha de Creación', auto_now=False, auto_now_add=True)  # Campo para la fecha de creación de la publicación
 
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
 
+    # Método para representar la categoría como una cadena
     def __str__(self):
         return self.titulo
