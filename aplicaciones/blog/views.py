@@ -20,8 +20,11 @@ def home(request):
             Q(descripcion__icontains=queryset)  # Filtrar por descripción que contiene el valor de búsqueda
         ).distinct()  # Eliminar duplicados en el resultado
 
+    # Paginar el conjunto de publicaciones con 2 publicaciones por página
     paginator = Paginator(posts, 2)
+    # Obtener el número de página solicitada del parámetro de consulta 'page'
     page = request.GET.get('page')
+    # Obtener las publicaciones correspondientes a la página actual
     posts = paginator.get_page(page)
     
     # Renderizar la plantilla 'index.html' y pasar el conjunto de publicaciones como contexto
@@ -48,11 +51,12 @@ def about(request):
             Q(descripcion__icontains=queryset)  # Filtrar por descripción que contiene el valor de búsqueda
         ).distinct()  # Eliminar duplicados en el resultado
     
-    paginator = Paginator(posts, 5)
+    # Paginar el conjunto de publicaciones con 2 publicaciones por página
+    paginator = Paginator(posts, 2)
+    # Obtener el número de página solicitada del parámetro de consulta 'page'
     page = request.GET.get('page')
+    # Obtener las publicaciones correspondientes a la página actual
     posts = paginator.get_page(page)
-    # Renderizar la plantilla 'about.html' y pasar el queryset de publicaciones como contexto
-    return render(request, 'about.html', {'posts': posts})
 
 def anecdotes(request):
     # Obtener el valor del parámetro de consulta llamado "buscar"
@@ -69,10 +73,13 @@ def anecdotes(request):
             Q(descripcion__icontains=queryset)  # Filtrar por descripción que contiene el valor de búsqueda
         ).distinct()  # Eliminar duplicados en el resultado
     # Renderizar la plantilla 'anecdotes.html' y pasar el queryset de publicaciones como contexto
-    paginator = Paginator(posts, 5)
+        
+    # Paginar el conjunto de publicaciones con 2 publicaciones por página
+    paginator = Paginator(posts, 2)
+    # Obtener el número de página solicitada del parámetro de consulta 'page'
     page = request.GET.get('page')
+    # Obtener las publicaciones correspondientes a la página actual
     posts = paginator.get_page(page)
-    return render(request, 'anecdotes.html', {'posts': posts})
 
 def purpose(request):
     # Obtener el valor del parámetro de consulta llamado "buscar"
@@ -88,8 +95,13 @@ def purpose(request):
             Q(titulo__icontains=queryset) |  # Filtrar por título que contiene el valor de búsqueda
             Q(descripcion__icontains=queryset)  # Filtrar por descripción que contiene el valor de búsqueda
         ).distinct()  # Eliminar duplicados en el resultado
-    paginator = Paginator(posts, 5)
+
+    # Paginar el conjunto de publicaciones con 2 publicaciones por página
+    paginator = Paginator(posts, 2)
+    # Obtener el número de página solicitada del parámetro de consulta 'page'
     page = request.GET.get('page')
+    # Obtener las publicaciones correspondientes a la página actual
     posts = paginator.get_page(page)
+    
     # Renderizar la plantilla 'purpose.html' y pasar el queryset de publicaciones como contexto
     return render(request, 'purpose.html', {'posts': posts})
